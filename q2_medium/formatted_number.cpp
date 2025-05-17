@@ -38,7 +38,8 @@ string FormattedNumber(string strArr, int strLen) {
     for (unsigned int i = 0; i < integerPortion.size(); i++) {
 
         if (strArr.at(i) == ',') {
-            if ((strArr.at(i+COMMA_SEPARATOR_DISTANCE) != ',') && (strArr.at(i+COMMA_SEPARATOR_DISTANCE) != '.')) {
+            if (i + COMMA_SEPARATOR_DISTANCE >= strArr.size() || 
+                ((strArr.at(i + COMMA_SEPARATOR_DISTANCE) != ',') && (strArr.at(i + COMMA_SEPARATOR_DISTANCE) != '.'))) {
                 result = "false";
                 return result;
             }
