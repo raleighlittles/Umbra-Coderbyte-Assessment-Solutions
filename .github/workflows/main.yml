@@ -28,7 +28,7 @@ jobs:
 
       - name: "Run unit tests"
         run:
-          ./builds/tests/umbra_assessment_tests --gtest_shuffle --gtest_break_on_failure --gtest_repeat=2 --gtest_output="xml:umbra.xml"
+          ./build/tests/umbra_assessment_tests --gtest_shuffle --gtest_break_on_failure --gtest_repeat=3 --gtest_output="xml:umbra.xml"
 
       - name: 'Upload unit test results'
         uses: actions/upload-artifact@v4
