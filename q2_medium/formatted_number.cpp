@@ -1,74 +1,51 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
-string FormattedNumber(string strArr[], int arrLength) {
+string FormattedNumber(string strArr, int strLen) {
 
-    // Decimal point rules:
+    // Split the string into an integer part and a "decimal" part, validate one at a time.
+    // Easy rules:
+    // 1a) A valid string cannot contain more than one decimal/period ('.')
+    // 1b) A valid string cannot start with a period or end with a period
     //
-    // 1a) Cannot have more than one period/decimal point
+    // 2) At the index in a string where a comma occurs, either a comma or a period must occur exactly 4 positions to the
+    // right
 
-    // Rules about commas:
-    //
-    // 2a) A comma must be exactly 3 spaces away from another comma
-    //     (if there's more than 1 comma in the string)
-    //
-    // 2b) If the string has a decimal point and 1 comma, then the comm must be 3 spots to the left
-    //     of the decimal point
-    //
-    // 2c) If the string has as decimal point and n commas, then the first comma must appear within the first 3 chars of the string
+    string result = "false";
 
-    const string inputStr = strArr[0];
+    // Rule 1a
+    if (count(strArr.begin(), strArr.end(), '.')> 1U) {
+        result = "false";
+        return result;
+    }
 
-    int numPeriods = 0; int numCommas = 0;
+    // Rule 1b
+    if ((strArr.at(0) == '.') || (strArr.at(strLen - 1) == '.'))
+    {
+        result = "false";
+        return result;
+    }
 
-    int idxOfPeriod = 0;
-    vector<int> commaIdxs;
-    const int validCommaDist = 3;
+    const size_t periodIdx = strArr.find('.');
+    string integerPortion = strArr.substr(0, periodIdx);
 
-    for (int i = 0; i < inputStr.length(); i++) {
+    constexpr size_t COMMA_SEPARATOR_DISTANCE = 4U;
 
-        if (inputStr.at(i) == '.') {
+    // Rule 2
+    for (unsigned int i = 0; i < integerPortion.size(); i++) {
 
-            if (numPeriods == 1) {
-                // You're already at 1, and you've just found another
-                // Violates rule 1a
-                return "false";
+        if (strArr.at(i) == ',') {
+            if ((strArr.at(i+COMMA_SEPARATOR_DISTANCE) != ',') && (strArr.at(i+COMMA_SEPARATOR_DISTANCE) != '.')) {
+                result = "false";
+                return result;
             }
-        
-            else {
-                numPeriods++;
-                idxOfPeriod = i;
-            }
-        } else if (inputStr.at(i) == '.') {
-
-            if (!commaIdxs.empty()) {
-
-                // Check rule 2a
-                int prevCommaIdx = commaIdxs.back();
-
-                if ( (i - prevCommaIdx) != validCommaDist ) {
-                    return "false";
-                }
-            }
-
-            numCommas++;
-            commaIdxs.push_back(i);
         }
     }
 
-    if (numCommas == 1) {
-        // Rule 2b
-        if ( (idxOfPeriod - commaIdxs.back()) != validCommaDist) {
-            return "false";
-        }
-    } else if (numCommas > 1) {
-        // Rule 2c
-        if (commaIdxs.front() > 4) {
-            return "false";
-        }
-    }
+
+    result = "true";
+    return result;
 }

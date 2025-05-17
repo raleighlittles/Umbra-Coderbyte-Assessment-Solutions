@@ -1,5 +1,16 @@
+
+# Clion files
+.idea/
 # Prerequisites
 *.d
+
+# CMake output
+compile_commands.json
+cmake_build/
+build/
+
+# Google Test output files
+*.xml
 
 # Compiled Object files
 *.slo

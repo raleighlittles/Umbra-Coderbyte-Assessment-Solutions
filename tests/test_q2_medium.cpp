@@ -3,29 +3,29 @@
 
 TEST(q2_medium, test1) {
 
-    std::string strArr[12] = {
-        "1", ",", "0", "9", "3", ",", "2", "2", "2", ".", "0", "4"
+    std::string strArr = {
+        "1,093,222.04"
     };
-    EXPECT_EQ(FormattedNumber(strArr, 12), "true") << " '1,093,222.04' is a valid formatted number";
+    EXPECT_EQ(FormattedNumber(strArr, 12), "true") << " " << strArr << " is a valid formatted number";
 }
 
 TEST(q2_medium, test2) {
-    std::string strArr[11] = {
-        "1", ",", "0", "9", "3", ",", "2", "2", ".", "0", "4"
+    std::string strArr = {
+        "1,093,22.04"
     };
-    EXPECT_EQ(FormattedNumber(strArr, 11), "false") << " '1,093,22.04' is NOT a valid formatted number";
+    EXPECT_EQ(FormattedNumber(strArr, 11), "false") <<  " " << strArr << " is NOT a valid formatted number";
 }
 
 TEST(q2_medium, test3) {
-    std::string strArr[8] = {
-        "0", ".", "2", "3", "2", "5", "6", "7"
+    std::string strArr = {
+        "0.232567"
     };
-    EXPECT_EQ(FormattedNumber(strArr, 8), "true") << " '0.232567' is a valid formatted number";
+    EXPECT_EQ(FormattedNumber(strArr, 8), "true") << " " << strArr << " is a valid formatted number";
 }
 
 TEST(q2_medium, test4) {
-    std::string strArr[10] = {
-        "2", ",", "5", "6", "7", ".", "0", "0", ".", "2"
+    std::string strArr = {
+        "2,567.00.2"
     };
-    EXPECT_EQ(FormattedNumber(strArr, 10), "false") << " '2,567.00.2' is NOT a valid formatted number";
+    EXPECT_EQ(FormattedNumber(strArr, 10), "false") << strArr << " is NOT a valid formatted number";
 }
