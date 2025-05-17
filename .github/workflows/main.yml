@@ -24,11 +24,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: "Build"
-        run: cmake -S . -B build && cmake --build build
+        run: cmake --version && cmake -S . -B build && cmake --build build
 
       - name: "Run unit tests"
         run:
-          ./tests/umbra_assessment_tests --gtest_shuffle --gtest_break_on_failure --gtest_repeat=2 --gtest_output="xml:umbra.xml"
+          ./builds/tests/umbra_assessment_tests --gtest_shuffle --gtest_break_on_failure --gtest_repeat=2 --gtest_output="xml:umbra.xml"
 
       - name: 'Upload unit test results'
         uses: actions/upload-artifact@v4
