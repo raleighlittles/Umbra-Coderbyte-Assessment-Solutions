@@ -23,6 +23,11 @@ jobs:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
+      - name: "Setup dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake clang-tidy
+
       - name: "Build"
         run: cmake --version && cmake -S . -B build && cmake --build build
 
